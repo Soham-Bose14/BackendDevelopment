@@ -88,4 +88,88 @@ dbInteractor.getReferredSellers = async()=>{
     }
 };
 
+
+dbInteractor.getEncashedOffers = async()=>{
+    let sql = `CALL getEncashedOffers()`;
+    let results = {};
+    try{
+        results = await con.query(sql);
+        console.log(results);
+        return results[0];
+    }
+    catch(err){
+        console.log(err);
+    }
+};
+
+
+dbInteractor.getOfferWiseReport = async()=>{
+    let sql = `CALL getOfferWiseReport()`;
+    let results = {};
+    try{
+        results = await con.query(sql);
+        console.log(results[0]);
+        return results[0];
+    }
+    catch(err){
+        console.log(err);
+    }
+};
+
+
+dbInteractor.getOfferWalletReport = async()=>{
+    let sql = `CALL getOfferWalletReport()`;
+    let results = {};
+    try{
+        results = await con.query(sql);
+        console.log(results[0]);
+        return results[0];
+    }
+    catch(err){
+        console.log(err);
+    }
+};
+
+
+dbInteractor.getReferredChampions = async()=>{
+    let sql = `CALL getReferredChampions()`;
+    let results = {};
+    try{
+        results = await con.query(sql);
+        console.log(results[0]);
+        return results[0];
+    }
+    catch(err){
+        console.log(err);
+    }
+};
+
+
+dbInteractor.getSellerSubscriptionByChampion = async()=>{
+    let sql = `CALL getSellerSubscriptionByChampion()`;
+    let results = {};
+    try{
+        results = await con.query(sql);
+        console.log(results[0]);
+        return results[0];
+    }
+    catch(err){
+        console.log(err);
+    }
+};
+
+
+dbInteractor.getSellerOffersByChampion = async()=>{
+    let sql = `CALL getSellerOfferByChampion()`;
+    let results = {};
+    try{
+        results = await con.query(sql);
+        console.log(results[0]);
+        return results[0];
+    }
+    catch(err){
+        console.log(err);
+    }
+};
+
 module.exports = dbInteractor;
