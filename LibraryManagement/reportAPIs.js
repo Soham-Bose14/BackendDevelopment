@@ -25,6 +25,7 @@ app.get("/getPrimeCustomersBySupChamps", (req, res)=>{
       message: 'Authentication successful!',
       token: token,
     });
+    controller.getPrimeCustomers(5);
   }
   else{
     res.json({
@@ -32,7 +33,6 @@ app.get("/getPrimeCustomersBySupChamps", (req, res)=>{
       message: 'Invalid Credentials'
     });
   }
-  controller.getPrimeCustomers(5);
     
 });
 
@@ -49,6 +49,7 @@ app.get("/getRefSupChamps", (req, res)=>{
       message: 'Authentication successful!',
       token: token,
     });
+    controller.getReferredSupChamps();
   }
   else{
     res.json({
@@ -56,7 +57,6 @@ app.get("/getRefSupChamps", (req, res)=>{
       message: 'Invalid Credentials'
     });
   }
-  controller.getReferredSupChamps();
 
 });
 
@@ -73,6 +73,7 @@ app.get("/getSellerSubscription", (req, res)=>{
       message: 'Authentication successful!',
       token: token,
     });
+    controller.getSellerSubscription();
   }
   else{
     res.json({
@@ -80,7 +81,6 @@ app.get("/getSellerSubscription", (req, res)=>{
       message: 'Invalid Credentials'
     });
   }
-   controller.getSellerSubscription();
    
 });
 
@@ -97,6 +97,7 @@ app.get("/getSellerOffersBySupChamps", (req, res)=>{
       message: 'Authentication successful!',
       token: token,
     });
+    controller.getSellerOffersBySupChamps();
   }
   else{
     res.json({
@@ -104,7 +105,6 @@ app.get("/getSellerOffersBySupChamps", (req, res)=>{
       message: 'Invalid Credentials'
     });
   }
-  controller.getSellerOffersBySupChamps();
     
 });
 
@@ -121,6 +121,7 @@ app.get("/getEnrolledChampions", (req, res)=>{
       message: 'Authentication successful!',
       token: token,
     });
+    controller.getEnrolledChampions();
   }
   else{
     res.json({
@@ -128,7 +129,6 @@ app.get("/getEnrolledChampions", (req, res)=>{
       message: 'Invalid Credentials'
     });
   }
-    controller.getEnrolledChampions();
 
 });
 
@@ -145,6 +145,7 @@ app.get("/getPrimeCustomersBySellers", (req, res)=>{
       message: 'Authentication successful!',
       token: token,
     });
+    controller.getPrimeCustomers(0);
   }
   else{
     res.json({
@@ -158,7 +159,6 @@ app.get("/getPrimeCustomersBySellers", (req, res)=>{
             return console.log(err);
         return console.log("Details of Prime Customers made by Sellers", results);
     });
-    controller.getPrimeCustomers(0);
 });
 
 //API to get Referred Sellers
@@ -174,6 +174,7 @@ app.get("/getReferredSellers", (req, res)=>{
       message: 'Authentication successful!',
       token: token,
     });
+    controller.getReferredSellers();
   }
   else{
     res.json({
@@ -181,7 +182,168 @@ app.get("/getReferredSellers", (req, res)=>{
       message: 'Invalid Credentials'
     });
   }
-    controller.getReferredSellers();
+    
     
 });
 
+//API to get encashed offers
+app.get("/getEncashedOffers", (req, res)=>{
+  const {name, pwsd} = req.body;
+
+  //Authenticate user details
+  if(name === req.username && pswd === req.password){
+    //Generate a new JWT token
+    const token = token(userDetails);
+    res.json({
+      success: true,
+      message: 'Authentication successful!',
+      token: token,
+    });
+    controller.getEncashedOffers();
+  }
+  else{
+    res.json({
+      success: false,
+      message: 'Invalid Credentials'
+    });
+  }
+});
+
+//API to get Offer Wise Report
+app.get("/getOfferWalletReport", (req, res)=>{
+  const {name, pwsd} = req.body;
+
+  //Authenticate user details
+  if(name === req.username && pswd === req.password){
+    //Generate a new JWT token
+    const token = token(userDetails);
+    res.json({
+      success: true,
+      message: 'Authentication successful!',
+      token: token,
+    });
+    controller.getOfferWiseReport();
+  }
+  else{
+    res.json({
+      success: false,
+      message: 'Invalid Credentials'
+    });
+  }
+});
+
+//API to get Offer Wallet Report
+app.get("/getOfferWiseReport", (req, res)=>{
+  const {name, pwsd} = req.body;
+
+  //Authenticate user details
+  if(name === req.username && pswd === req.password){
+    //Generate a new JWT token
+    const token = token(userDetails);
+    res.json({
+      success: true,
+      message: 'Authentication successful!',
+      token: token,
+    });
+    controller.getOfferWalletReport();
+  }
+  else{
+    res.json({
+      success: false,
+      message: 'Invalid Credentials'
+    });
+  }
+});
+
+
+//API to get Prime Customers emrolled by Champions
+app.get("/getPrimeCustomersByChampions", (req, res)=>{
+  const {name, pwsd} = req.body;
+
+  //Authenticate user details
+  if(name === req.username && pswd === req.password){
+    //Generate a new JWT token
+    const token = token(userDetails);
+    res.json({
+      success: true,
+      message: 'Authentication successful!',
+      token: token,
+    });
+    controller.getPrimeCustomers(6);
+  }
+  else{
+    res.json({
+      success: false,
+      message: 'Invalid Credentials'
+    });
+  }
+});
+
+//API to get Referred Champions
+app.get("/getReferredChampions", (req, res)=>{
+  const {name, pwsd} = req.body;
+
+  //Authenticate user details
+  if(name === req.username && pswd === req.password){
+    //Generate a new JWT token
+    const token = token(userDetails);
+    res.json({
+      success: true,
+      message: 'Authentication successful!',
+      token: token,
+    });
+    controller.getReferredChampions();
+  }
+  else{
+    res.json({
+      success: false,
+      message: 'Invalid Credentials'
+    });
+  }
+});
+
+//API to get Seller Subscription
+app.get("/getSellerSubscriptionByChampion", (req, res)=>{
+  const {name, pwsd} = req.body;
+
+  //Authenticate user details
+  if(name === req.username && pswd === req.password){
+    //Generate a new JWT token
+    const token = token(userDetails);
+    res.json({
+      success: true,
+      message: 'Authentication successful!',
+      token: token,
+    });
+    controller.getSellerSubscriptionByChampion();
+  }
+  else{
+    res.json({
+      success: false,
+      message: 'Invalid Credentials'
+    });
+  }
+});
+
+//API to get Seller Offers By Champion
+app.get("/getSellerOffersByChampion", (req, res)=>{
+  const {name, pwsd} = req.body;
+
+  //Authenticate user details
+  if(name === req.username && pswd === req.password){
+    //Generate a new JWT token
+    const token = token(userDetails);
+    res.json({
+      success: true,
+      message: 'Authentication successful!',
+      token: token,
+    });
+    controller.getSellerOffersByChampion();
+  }
+  else{
+    res.json({
+      success: false,
+      message: 'Invalid Credentials'
+    });
+  }
+});
