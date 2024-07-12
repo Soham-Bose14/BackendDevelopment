@@ -1,3 +1,4 @@
+const { off } = require('./database');
 const dbModel = require('./dbInteractor');
 const { response } = require('./soham');
 const util = require('./utility');
@@ -189,6 +190,204 @@ controller.getReferredSellers = async(req, res)=>{
                 responseStatus:"Ok",
                 message:"Oops! No records found",
                 ReferredSellers:[]
+            });
+        }
+    }
+    catch(err){
+        console.log(err);
+    }
+};
+
+
+controller.getEncashedOffers = async(req, res)=>{
+    try{
+        let obtainedOffers = await dbModel.getEncashedOffers();
+        let encashedOffers = [];
+        for(offer of obtainedOffers){
+            offerObj = {};
+            offerObj.champion_id = util.encrypt(offer.Champion_ID.toString());
+            offerObj.offer_name = offer.Offer_Name;
+            offerObj.offer_start_date = offer.Offer_Start_Date;
+            offerObj.offer_type = offer.Offer_Type;
+            encashedOffers.push(offerObj);
+        }
+        if(encashedOffers.length > 0){
+            res.status(200).json({
+                responseStatus:"Ok",
+                encashedOffers:encashedOffers
+            });
+        }
+        else{
+            res.status(200).json({
+                responseStatus:"Ok",
+                message:"Oops! No records found",
+                encashedOffers:[]
+            });
+        }
+    }
+    catch(err){
+        console.log(err);
+    }
+};
+
+
+controller.getOfferWiseReport = async(req, res)=>{
+    try{
+        let offerWiseResults = await dbModel.getOfferWiseReport();
+        let offerWiseReport = [];
+        for(result of offerWiseResults){
+            let obj = {};
+            obj.offer_name = result.Offer_Name;
+            obj.likes = util.encrypt(result.Likes,toString());
+            obj.ratings = util.encrypt(result.Ratings.toString());
+            obj.offer_type = result.Offer_Type;
+            offerWiseReport.push(obj);
+        }
+        if(offerWiseReport.length > 0){
+            res.status(200).json({
+                responseStatus:"Ok",
+                offerWiseReport:offerWiseReport
+            });
+        }
+        else{
+            res.status(200).json({
+                responseStatus:"Ok",
+                message:"Oops!Couldn't find any records",
+                offerWiseReport:[]
+            });
+        }
+    }
+    catch(err){
+        console.log(err);
+    }
+};
+
+
+controller.getOfferWalletReport = async(req, res)=>{
+    try{
+        let offerWalletResults = await dbModel.getOfferWalletReport();
+        let offerWalletReport = [];
+        for(result of offerWalletResults){
+            let obj = {};
+            obj.offer_name = result.Offer_Name;
+            obj.offer_package_purchased = util.encrypt(result.Offer_Package_Purchased.toString());
+            obj.balance_offers = util.encrypt(result.Balance_Offers.toString());
+            obj.complementary_offers = util.encrypt(result.Complementary_Offers.toString());
+            obj.offer_package_end_date = util.encrypt(result.Offer_Package_End_Date.toString());
+            obj.offer_type = result.Offer_Type;
+            offerWalletReport.push(obj);
+        }
+        if(offerWalletReport.length > 0){
+            res.status(200).json({
+                responseStatus:"Ok",
+                offerWalletReport:offerWalletReport
+            });
+        }
+        else{
+            res.status(200).json({
+                responseStatus:"Ok",
+                message:"Oops! No records found",
+                offerWalletReport:[]
+            });
+        }
+    }
+    catch(err){
+        console.log(err);
+    }
+};
+
+
+controller.getReferredChampions = async(req, res)=>{
+    try{
+        let referredChampionsObtained = await dbModel.getReferredChampions();
+        let referredChampions = [];
+        for(rc of referredChampions){
+            let rcObj = {};
+            rcObj.champion_id = util.encrypt(rc.Champion_ID.toString());
+            rcObj.referred_champion_id = util.encrypt(rc.Referred_Champion_ID.toString());
+            rcObj.champion_type = rc.Champion_Type;
+            rcObj.targets_achieved = util.encrypt(rc.Targets_Achieved.toString());
+            rcObj.target_balance = util.encrypt(rc.Target_Balance.toString());
+            rcObj.subscription_end_date = util.encrypt(rc.Subscription_End_Date.toString());
+            referredChampions.push(rcObj);
+        }
+        if(referredChampions.length > 0){
+            res.status(200).json({
+                responseStatus:"Ok",
+                referredChampions:referredChampions
+            });
+        }
+        else{
+            res.status(200).json({
+                responseStatus:"Ok",
+                message:"Oops! No records found",
+                referredChampions:[]
+            });
+        }
+    }
+    catch(err){
+        console.log(err);
+    }
+};
+
+
+controller.getSellerSubscriptionByChampion = async(req, res)=>{
+    try{
+        let sellersObtained = await dbModel.getSellerSubscriptionByChampion();
+        let sellerList = [];
+        for(seller of sellersObtained){
+            let sellerObj = {};
+            sellerObj.champion_id = util.encrypt(seller.Champion_ID.toString());
+            sellerObj.seller_id = util.encrypt(seller.Seller_ID.toString());
+            sellerObj.package_type = util.encrypt(seller.Package_Type.toString());
+            sellerObj.category_type = seller.Category_Type;
+            sellerObj.subscription_end_date = util.encrypt(seller.Subscription_End_Date.toString());
+            sellerList.push(sellerObj);
+        }
+        if(sellerList.length > 0){
+            res.status(200).json({
+                responseStatus:"Ok",
+                sellerList:sellerList
+            });
+        }
+        else{
+            res.status(200).json({
+                responseStatus:"Ok",
+                message:"Oops! No record found",
+                sellerList:[]
+            });
+        }
+    }
+    catch(err){
+        console.log(err);
+    }
+};
+
+
+controller.getSellerOffersByChampion = async(req, res)=>{
+    try{
+        let obtainedSellerOffers = await dbModel.getSellerOffersByChampion();
+        let sellerOffers = [];
+        for(offer of obtainedSellerOffers){
+            offerObj = {};
+            offerObj.champion_id = util.encrypt(offer.Champion_ID.toString());
+            offerObj.seller_id = util.encrypt(offer.Seller_ID.toString());
+            offerObj.offer_type = offer.Offer_Type;
+            offerObj.offer_uploads = util.encrypt(offer.Offer_Uploads.toString());
+            offerObj.package_end_date = util.encrypt(offer.Package_End_Date.toString());
+            sellerOffers.push(offerObj);
+        }
+        if(sellerOffers.length > 0){
+            res.status(200).json({
+                responseStatus:"Ok",
+                sellerOffers:sellerOffers
+            });
+        }
+        else{
+            res.status(200).json({
+                responseStatus:"Ok",
+                message:"Oops! No record found",
+                sellerOffers:[]
             });
         }
     }
